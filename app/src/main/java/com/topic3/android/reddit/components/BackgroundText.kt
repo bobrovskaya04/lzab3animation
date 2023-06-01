@@ -25,3 +25,46 @@ fun BackgroundText(text: String) {
       .fillMaxWidth()
   )
 }
+val transition = updateTransition(
+  targetState = buttonState,
+  label = "JoinButtonTransition"
+)
+
+val  duration = 600
+val buttonBackgroundColor: Color by transition.animateColor(
+  transitionSpec = {
+    tween(duration)
+  },
+  label = "Button Background Color"
+){
+    state ->
+  when (state){
+    JoinButtonState.IDLE -> Color.Blue
+    JoinButtonState.PRESSED -> Color.White
+  }
+}
+
+val buttonWidth: Dp
+        by transition.animateDp(
+          transitionSpec = { tween(duration) },
+          label = "Button Width"
+
+        ) { state ->
+          when (state){
+            JoinButtonState.IDLE -> 70.dp
+            JoinButtonState.PRESSED -> 32.dp
+          }
+        }
+
+val textMaxWidth: Dp
+        by transition.animateDp(
+          transitionSpec = { tween(duration) },
+          label = "Text Max Width"
+        ) {state ->
+          when (state){
+            JoinButtonState.IDLE -> 40.dp
+            JoinButtonState.PRESSED -> 0.dp
+          }
+
+        }
+
