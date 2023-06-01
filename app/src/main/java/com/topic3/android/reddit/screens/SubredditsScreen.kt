@@ -69,6 +69,53 @@ val communities = listOf(
 @Composable
 fun SubredditsScreen(modifier: Modifier = Modifier) {
     //TODO add your code here
+    ConstraintLayout(modifier = modifier
+        .fillMaxSize()
+        .background(color = MaterialTheme.colors.surface)
+    ) {
+        val (backgroundImage, icon, name, members, description) = createRefs()
+
+        SubredditImage(modifier = modifier.constrainAs(backgroundImage) {
+            centerHorizontallyTo(parent)
+            top.linkTo(parent.top)
+        })
+
+        SubredditIcon(modifier = modifier
+            .constrainAs(icon){
+                top.linkTo(backgroundImage.bottom)
+                centerHorizontallyTo(parent)
+            }
+        )
+        SubredditName( nameStringRes =subredditModel.nameStringRes,
+            modifier = modifier.constrainAs(name){
+                top.linkTo(icon.bottom)
+                centerHorizontallyTo(parent)
+            }
+        )
+
+        SubredditMembers(membersStringRes = subredditModel.membersStringRes,
+            modifier = modifier.constrainAs(members){
+                top.linkTo(name.bottom)
+                centerHorizontallyTo(parent)
+            }
+        )
+        SubredditDescription(descriptionStringRes =subredditModel.descriptionStringRes,
+            modifier = modifier.constrainAs(description){
+                top.linkTo(members.bottom)
+                centerHorizontallyTo(parent)
+            }
+        )
+    }
+    Card(
+        backgroundColor = MaterialTheme.colors.surface,
+        shape = RoundedCornerShape(4.dp),
+        modifier = modifier
+            .size(120.dp)
+            .padding(start = 2.dp, end = 2.dp, top = 4.dp, bottom = 4.dp)
+    ) {
+        SubredditBody(subredditModel)
+
+    }
 }
 
 @Composable
