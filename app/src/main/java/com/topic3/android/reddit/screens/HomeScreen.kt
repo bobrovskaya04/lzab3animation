@@ -16,5 +16,12 @@ fun HomeScreen() {
             Spacer(modifier = Modifier.height(6.dp))
         }
     }
+    AnimatedVisibility(
+        visible = visible,
+        enter =  slideInVertically (initialOffsetY = { +40 }) + fadeIn(),
+        exit =  slideOutVertically() + fadeOut()
+    ){
+        ToastContent()
+    }
 
 }
